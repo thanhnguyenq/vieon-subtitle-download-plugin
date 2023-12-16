@@ -1,10 +1,13 @@
 // ==UserScript==
 // @name         Vieon Subtitle Downloader [VTT]
-// @version      0.3
+// @version      0.4
 // @description  Download subtitle from Vieon
 // @author       Chiefileum
 // @match        https://vieon.vn/*.html
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=vieon.vn
+// @run-at       document-start
+// @updateURL    https://github.com/thanhnguyenq/vieon-subtitle-download-plugin/raw/main/download.user.js
+// @downloadURL  https://github.com/thanhnguyenq/vieon-subtitle-download-plugin/raw/main/download.user.js
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
