@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Vieon Subtitle Downloader [VTT]
-// @version      0.4
+// @version      0.5
 // @description  Download subtitle from Vieon
 // @author       Chiefileum
 // @match        https://vieon.vn/*.html
@@ -13,6 +13,26 @@
 
 (function() {
     'use strict';
+
+    function waitForElm(selector) {
+        return new Promise(resolve => {
+            if (document.querySelector(selector)) {
+                return resolve(document.querySelector(selector));
+            }
+
+            const observer = new MutationObserver(mutations => {
+                if (document.querySelector(selector)) {
+                    observer.disconnect();
+                    resolve(document.querySelector(selector));
+                }
+            });
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+    }
 
     function getVTTSubtitle(url, callBackFn) {
         GM_xmlhttpRequest ({
@@ -35,8 +55,9 @@
         newButton.href = URL.createObjectURL(blob);
         newButton.className='ControlBottom_Button__qrmzR';
 
-        var node = document.querySelector(".player__controls-bottom__item.player-report button");
-        node.parentNode.replaceChild(newButton, node);
+        waitForElm(".player__controls-bottom__item.player-report button").then((elm) => {
+            elm.parentNode.replaceChild(newButton, elm);
+        });
     }
 
     const constantMock = window.fetch;
