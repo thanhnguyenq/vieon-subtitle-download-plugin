@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         Vieon Subtitle Downloader [VTT]
-// @version      0.5
+// @namespace    https://www.facebook.com/vnanime.net/
+// @version      0.6
 // @description  Download subtitle from Vieon
 // @author       Chiefileum
 // @match        https://vieon.vn/*.html
@@ -51,11 +52,11 @@
 
         const newButton = document.createElement('a');
         newButton.textContent = 'Download Sub';
-        newButton.download = `${document.title}.vtt`;
         newButton.href = URL.createObjectURL(blob);
         newButton.className='ControlBottom_Button__qrmzR';
 
         waitForElm(".player__controls-bottom__item.player-report button").then((elm) => {
+            newButton.download = `${document.getElementsByClassName('player__title-sub')[0].innerHTML}.vtt`;
             elm.parentNode.replaceChild(newButton, elm);
         });
     }
